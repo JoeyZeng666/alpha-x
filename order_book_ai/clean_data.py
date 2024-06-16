@@ -52,9 +52,11 @@ def merge_data(data_all):
     bids = data_all[data_all['side'] == 0]
     bids_pivot = bids.pivot(index='server_time', columns='level', values='price')
     bids_pivot.columns =[f'bid_{abs(i)}_price' for i in bids_pivot.columns]
+    
 
     # 合并bid和ask订单
     data_all = pd.concat([ asks_pivot,bids_pivot], axis=1).reset_index()
+    # 去重
 
     data_all.sort_index()
     return data_all
