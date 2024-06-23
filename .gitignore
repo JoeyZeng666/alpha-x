@@ -2,4 +2,6 @@
 .idea
 .dataset_temp
 **/dataset_temp
+.data
+**/data
 __pycache__
