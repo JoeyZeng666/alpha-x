@@ -10,9 +10,10 @@ from order_book_ai.src.model_tainer import ModelTrainer
 from order_book_ai.src.target_builder import TargetBuilder
 from sklearn.model_selection import train_test_split
 import joblib
+from sklearn import metrics
 
 
-data_base_path = "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/result/"
+data_base_path = "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/result_test/"
 
 
 def handle_data(raw_data):
@@ -36,17 +37,6 @@ def handle_data(raw_data):
     return target_data
 
 
-def train(target_data):
-    x_train, y_train= select_features(target_data)
-
-    model_trainer = ModelTrainer()
-    print("开始训练模型...")
-    final_model = model_trainer.train_model(x_train, y_train)
-    print("模型训练完成...")
-    model_path = f"{data_base_path}model.pkl"
-    joblib.dump(final_model, model_path)
-    print(f"模型保存在 {model_path}")
-
 
 def select_features(data):
     """选择特征"""
@@ -59,14 +49,25 @@ def select_features(data):
     only_features = data.drop(["target", "datetime", "server_time"], axis=1)
     # 最后拆分数据，返回训练集和测试集
     return only_features, target
-    # return train_test_split(only_features, target, test_size=0.4, random_state=42)
 
 
 if __name__ == "__main__":
-    raw_data = pd.read_csv(
-        "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/hours/data_2024-04-21 00.csv"
-    )
-    target_data = handle_data(raw_data)
 
-    
-    train(target_data)
+    test_data = pd.read_csv(
+        "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/hours/data_2024-04-21 18.csv"
+    )
+
+    target_data = handle_data(test_data)
+    x_test,y_test = select_features(target_data)
+
+        # 定义模型文件路径
+    model_file_path = '/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/result/model.pkl'
+
+    # 加载模型
+    model = joblib.load(model_file_path)
+
+    # 正式预测
+    pred = model.predict(x_test)
+    # 与真实值比较
+    print(metrics.accuracy_score(y_test,pred))
+
