@@ -9,9 +9,9 @@ class TargetBuilder:
 
     @staticmethod
     def build(data):
-        gap = -120
+        gap = -60
         feature_price = data["price"].shift(gap)
-        # rise_percent = round((feature_price - data["price"]) / data["price"], 4)
-        data.insert(0, "target", (feature_price > data["price"]).astype(int))
+        rise_percent = round((feature_price - data["price"]) / data["price"], 5)
+        data.insert(0, "target", (rise_percent > 0.0015).astype(int))
         data.loc[data.index[gap:], "target"] = np.nan
         return data

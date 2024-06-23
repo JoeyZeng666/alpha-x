@@ -67,6 +67,4 @@ if __name__ == "__main__":
         "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/hours/data_2024-04-21 00.csv"
     )
     target_data = handle_data(raw_data)
-
-    
     train(target_data)

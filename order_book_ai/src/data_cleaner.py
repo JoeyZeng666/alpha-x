@@ -12,7 +12,7 @@ class DataCleaner:
         raw_data = DataCleaner._data_preprocess(raw_data)
         raw_data = DataCleaner._cut_out(raw_data)
         raw_data = DataCleaner._merge_same_time_data(raw_data)
-        raw_data['price'] = raw_data['ask_1_price']
+        raw_data.insert(0, "price",  raw_data['ask_1_price'])
         return raw_data
 
     @staticmethod

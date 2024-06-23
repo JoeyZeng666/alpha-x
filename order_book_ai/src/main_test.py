@@ -54,8 +54,9 @@ def select_features(data):
 if __name__ == "__main__":
 
     test_data = pd.read_csv(
-        "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/hours/data_2024-04-21 18.csv"
+        "/Users/zengyan/Excelsior/ai-trader/order_book_ai/data/hours/data_2024-04-21 01.csv"
     )
+    # test_data = test_data.head(10)
 
     target_data = handle_data(test_data)
     x_test,y_test = select_features(target_data)
@@ -65,6 +66,11 @@ if __name__ == "__main__":
 
     # 加载模型
     model = joblib.load(model_file_path)
+    df1 = pd.DataFrame(x_test.columns,columns=['Variable'])
+    df2 = pd.DataFrame(model.feature_importances_,columns=['Importance'])
+    variable_importances = pd.concat([df1,df2],axis=1).sort_values(by='Importance',ascending=False)
+    print("训练结束，特征重要性如下：")
+    variable_importances.to_csv(f"{data_base_path}variable_importances.csv", index=False)
 
     # 正式预测
     pred = model.predict(x_test)
