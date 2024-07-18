@@ -1,16 +1,4 @@
-import os
-import sys
-
-
-from order_book_ai.src.data_cleaner import DataCleaner
 import pandas as pd
-
-from order_book_ai.src.feature_builder import FeatureBuilder
-from order_book_ai.src.model_tainer import ModelTrainer
-from order_book_ai.src.target_builder import TargetBuilder
-from sklearn.model_selection import train_test_split
-import joblib
-
 
 if __name__ == "__main__":
     raw_data = pd.read_csv(
