@@ -8,6 +8,7 @@ from alphax.core.utils.time_util import TimeUtil
 from alphax.dataset.candle.candle_downloader import CandleDownloader
 from alphax.dataset.candle.constants import CandleTimeframe
 
+
 class OkxCandleDownloader(CandleDownloader):
 
     def download(self, symbol: str, timeframe: CandleTimeframe, since: datetime, before: datetime,
