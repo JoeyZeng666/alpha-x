@@ -1,19 +1,32 @@
+import json
+import os
+
+import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
 
 from alphax import core
 from alphax.core.decorator.time_cost import time_cost
+from alphax.ml import ML_DIR
 
 
 class RandomForestRegressorTool:
     _logger = core.get_logger(__name__)
 
-    def __init__(self,name:str):
+    def __init__(self, name: str, version: int, desc: str = ''):
+        self.name = name
+        self.version = version
+        self.desc = desc
+        self.save_dir = f"{ML_DIR}/{name}/{version}"
+        self.model_file_name = f"{name}_{version}_rf_model.pkl"
+        self.info_file_name = f"{name}_{version}_info.json"
+        os.makedirs(self.save_dir, exist_ok=True)
         self.best_params = None
         self.best_score = None
         self.ramdom_state = 42
         self.n_jobs = -1
+        self.trained_model = None
         self._param_grid = {
             "n_estimators": [5, 25, 50, 75, 100],
             'max_features': ['sqrt', 'log2'],
@@ -28,12 +41,25 @@ class RandomForestRegressorTool:
         self._logger.info(f"Finding best params used time: {used_time} ms")
         return self.best_params
 
-    def train(self, x_train, y_train):
+    def train(self, x_train, y_train, param=None):
+        if param is not None:
+            self.best_params = param
         model, cost_time = self._do_train(x_train, y_train)
         self._logger.info(f"Training model used time: {cost_time} ms")
-        return model
+        self.trained_model = model
+        self.save()
+        return self.trained_model
 
-    def save
+    def save(self):
+        joblib.dump(self.trained_model, f"{self.save_dir}/{self.model_file_name}")
+        self._logger.info(f"Model saved to {self.save_dir}/{self.model_file_name}")
+        obj_dict = {k: v for k, v in self.__dict__.items() if k != "trained_model"}
+        with open(f"{self.save_dir}/{self.info_file_name}", 'w') as file:
+            json.dump(obj_dict, file)
+        self._logger.info(f"Model info saved to {self.save_dir}/{self.info_file_name}")
+
+    def predict(self, x_test):
+        pass
 
     @time_cost
     def _do_train(self, x_train, y_train):
@@ -67,6 +93,3 @@ class RandomForestRegressorTool:
         importance = pd.DataFrame(model.feature_importances_, columns=['Importance'])
         variable_importance = pd.concat([variable, importance], axis=1).sort_values(by='Importance', ascending=False)
         return variable_importance
-
-
-
