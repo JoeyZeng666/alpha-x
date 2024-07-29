@@ -1,3 +1,8 @@
+import os
+
 
 class FileUtil:
-    pass
+
+    @staticmethod
+    def mkdirs(path: str):
+        os.makedirs(path, exist_ok=True)

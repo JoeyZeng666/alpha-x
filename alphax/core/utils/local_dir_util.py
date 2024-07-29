@@ -1,5 +1,7 @@
 import os
 
+from alphax.core.utils.file_util import FileUtil
+
 
 class _LocalDirUtil:
     _local_dir = None
@@ -19,7 +21,7 @@ class _LocalDirUtil:
             current_path = os.path.dirname(current_path)
         if root_path:
             local_path = f"{root_path}/LOCAL"
-            os.makedirs(local_path, exist_ok=True)
+            FileUtil.mkdirs(local_path)
             return f"{root_path}/LOCAL"
         else:
             raise FileNotFoundError("没有找到根目录 alpha-x")
@@ -28,7 +30,7 @@ class _LocalDirUtil:
         return self._local_dir
 
     def set_local_dir(self, path: str):
-        os.makedirs(path, exist_ok=True)
+        FileUtil.mkdirs(path)
         self._local_dir = path
 
 

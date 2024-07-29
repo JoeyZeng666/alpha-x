@@ -4,19 +4,26 @@ from datetime import datetime
 import ccxt
 import pandas as pd
 
-from alphax.core.utils.time_util import TimeUtil
+from alphax.core.utils import TimeUtil, FileUtil
 from alphax.dataset.candle.candle_downloader import CandleDownloader
-from alphax.dataset.candle.constants import CandleTimeframe
+from alphax.dataset.candle import CandleTimeframe, DATASET_CANDLE_DIR
 
 
 class OkxCandleDownloader(CandleDownloader):
 
     def download(self, symbol: str, timeframe: CandleTimeframe, since: datetime, before: datetime,
-                 file_path: str):
+                 file_dir: str = DATASET_CANDLE_DIR) -> str:
         exchange = ccxt.okx()
         print(f"Fetching data from {since} to {before} ...")
         since_mills = TimeUtil.millisecond(since)
         before_mills = TimeUtil.millisecond(before)
+        since_str = TimeUtil.to_str(since)
+        before_str = TimeUtil.to_str(before)
+        file_dir = f"{file_dir}/{timeframe}"
+        FileUtil.mkdirs(file_dir)
+        file_name = f"{symbol.replace('/', '_')}_{since_str}_{before_str}.csv"
+        file_path = f"{file_dir}/{file_name}"
+
         all_ohlcvs = []
         count = 0
         while since_mills < before_mills:
@@ -32,4 +39,5 @@ class OkxCandleDownloader(CandleDownloader):
         df = pd.DataFrame(all_ohlcvs, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
         df.to_csv(file_path, index=False)
-        print(f"Data has been saved to {file_path}")
+        print(f"Data has been saved to {file_dir}")
+        return file_path

@@ -8,6 +8,7 @@ from sklearn.model_selection import GridSearchCV
 
 from alphax import core
 from alphax.core.decorator.time_cost import time_cost
+from alphax.core.utils.file_util import FileUtil
 from alphax.ml import ML_DIR
 
 
@@ -21,7 +22,7 @@ class RandomForestRegressorTool:
         self.save_dir = f"{ML_DIR}/{name}/{version}"
         self.model_file_name = f"{name}_{version}_rf_model.pkl"
         self.info_file_name = f"{name}_{version}_info.json"
-        os.makedirs(self.save_dir, exist_ok=True)
+        FileUtil.mkdirs(self.save_dir)
         self.best_params = None
         self.best_score = None
         self.ramdom_state = 42

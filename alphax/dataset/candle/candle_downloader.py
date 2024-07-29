@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 
-from alphax.dataset.candle.constants import CandleTimeframe
+from alphax.dataset.candle import CandleTimeframe
 
 
 class CandleDownloader(ABC):
