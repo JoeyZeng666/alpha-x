@@ -58,6 +58,9 @@ class RandomForestRegressorTool:
             json.dump(obj_dict, file)
         self._logger.info(f"Model info saved to {self.save_dir}/{self.info_file_name}")
 
+    def backtest(self, x_test, y_test):
+        pass
+
     def predict(self, x_test):
         pass
 
