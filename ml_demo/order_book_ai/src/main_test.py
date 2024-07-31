@@ -1,8 +1,8 @@
-from trash.order_book_ai.src.data_cleaner import DataCleaner
+from ml_demo.order_book_ai.src.data_cleaner import DataCleaner
 import pandas as pd
 
-from trash.order_book_ai.src.feature_builder import FeatureBuilder
-from trash.order_book_ai.src.target_builder import TargetBuilder
+from ml_demo.order_book_ai.src.feature_builder import FeatureBuilder
+from ml_demo.order_book_ai.src.target_builder import TargetBuilder
 import joblib
 from sklearn import metrics
 
