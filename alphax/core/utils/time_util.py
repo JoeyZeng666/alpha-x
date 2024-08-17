@@ -10,3 +10,7 @@ class TimeUtil:
     @staticmethod
     def to_str(time: datetime, fmt: str = "%Y-%m-%d %H:%M:%S"):
         return time.strftime(fmt)
+
+    @staticmethod
+    def now() -> datetime:
+        return datetime.now()
