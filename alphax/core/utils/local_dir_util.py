@@ -10,6 +10,7 @@ class _LocalDirUtil:
         super().__init__()
         self._local_dir = self._find_matching_parent_folder('alpha-x')
 
+
     @staticmethod
     def _find_matching_parent_folder(match_str):
         current_path = os.path.dirname(os.path.abspath(__file__))

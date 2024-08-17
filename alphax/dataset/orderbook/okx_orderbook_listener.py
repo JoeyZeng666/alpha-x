@@ -56,4 +56,4 @@ class OkxOrderbookCollecter:
 
 if __name__ == '__main__':
     collecter = OkxOrderbookCollecter()
-    collecter.start("BTC/USDT", 5)
+    collecter.start("DOGE/USDT:USDT", 5)
