@@ -1,3 +1,6 @@
+from enum import Enum
+
+from alphax.core.logger.alphax_log_uploader import AlphaxLogUploader
 from alphax.core.logger.alphax_logger import AlphaxLogger
 from alphax.core.logger import config as logger_config
 
@@ -9,6 +12,8 @@ WARN = WARNING
 INFO = 20
 DEBUG = 10
 NOTSET = 0
+
+_alphax_log_uploader = AlphaxLogUploader()
 
 
 def init_log(log_is_debug: bool):
@@ -23,3 +28,7 @@ def init_log(log_is_debug: bool):
 
 def get_logger(tag=None) -> AlphaxLogger:
     return AlphaxLogger(tag=tag)
+
+
+def get_log_uploader() -> AlphaxLogUploader:
+    return _alphax_log_uploader
