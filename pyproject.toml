@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "alpha-x"
+version = "0.1.0"
+description = "lets make some money"
+authors = ["Souprice <0706zengyan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9.6"
+tencentcloud-cls-sdk-python = {git = "https://github.com/TencentCloud/tencentcloud-cls-sdk-python.git"}
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
