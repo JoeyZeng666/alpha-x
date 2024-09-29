@@ -22,7 +22,7 @@ class RandomForestRegressorTool:
         self.save_dir = f"{ML_DIR}/{name}/{version}"
         self.model_file_name = f"{name}_{version}_rf_model.pkl"
         self.info_file_name = f"{name}_{version}_info.json"
-        FileUtil.mkdirs(self.save_dir)
+        FileUtil.mkdir(self.save_dir)
         self.best_params = None
         self.best_score = None
         self.ramdom_state = 42

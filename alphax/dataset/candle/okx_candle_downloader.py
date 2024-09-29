@@ -20,7 +20,7 @@ class OkxCandleDownloader(CandleDownloader):
         since_str = TimeUtil.to_str(since)
         before_str = TimeUtil.to_str(before)
         file_dir = f"{file_dir}/{timeframe}"
-        FileUtil.mkdirs(file_dir)
+        FileUtil.mkdir(file_dir)
         file_name = f"{symbol.replace('/', '_')}_{since_str}_{before_str}.csv"
         file_path = f"{file_dir}/{file_name}"
 

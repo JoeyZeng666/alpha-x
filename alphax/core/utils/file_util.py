@@ -4,7 +4,7 @@ import os
 class FileUtil:
 
     @staticmethod
-    def mkdirs(path: str):
+    def mkdir(path: str):
         os.makedirs(path, exist_ok=True)
 
     @staticmethod

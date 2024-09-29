@@ -22,7 +22,7 @@ class _LocalDirUtil:
             current_path = os.path.dirname(current_path)
         if root_path:
             local_path = f"{root_path}/LOCAL"
-            FileUtil.mkdirs(local_path)
+            FileUtil.mkdir(local_path)
             return f"{root_path}/LOCAL"
         else:
             raise FileNotFoundError("没有找到根目录 alpha-x")
@@ -31,7 +31,7 @@ class _LocalDirUtil:
         return self._local_dir
 
     def set_local_dir(self, path: str):
-        FileUtil.mkdirs(path)
+        FileUtil.mkdir(path)
         self._local_dir = path
 
 
