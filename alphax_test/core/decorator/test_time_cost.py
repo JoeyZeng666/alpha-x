@@ -1,5 +1,6 @@
 import time
 from unittest import TestCase
+import unittest
 
 from alphax.core.decorator.time_cost import time_cost
 

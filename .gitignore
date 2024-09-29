@@ -9,3 +9,4 @@ __pycache__
 #LOCAL
 LOCAL_TEST
 /.vscode/
+/.venv/
