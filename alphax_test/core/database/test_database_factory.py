@@ -2,7 +2,7 @@ import unittest
 import os
 import tempfile
 from peewee import SqliteDatabase
-from alphax.core.db.database_factory import DatabaseFactory
+from alphax.core.database.database_factory import DatabaseFactory
 from alphax.core.utils.local_dir_util import _LocalDirUtil
 
 

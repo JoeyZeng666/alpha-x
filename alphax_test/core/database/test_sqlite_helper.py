@@ -1,6 +1,6 @@
 import unittest
 from peewee import *
-from alphax.core.db.database_factory import DatabaseFactory
+from alphax.core.database.database_factory import DatabaseFactory
 import os
 
 
