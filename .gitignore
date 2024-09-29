@@ -8,3 +8,4 @@ __pycache__
 **/temp
 #LOCAL
 LOCAL_TEST
+/.vscode/
